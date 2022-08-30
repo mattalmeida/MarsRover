@@ -43,36 +43,42 @@ def run_rover(start: Tuple[int, int, str],
 
     present_position = (start[0], start[1])
     temp_orientation = CardinalDir[str(start[2])].value
-    f'presently at {present_position[0]}, {present_position[1]} facing {temp_orientation}'
-    for char in directions:
-        f'presently at {present_position[0]}, {present_position[1]} facing {temp_orientation}'
+    # print(f'presently at {present_position[0]}, {present_position[1]} facing {temp_orientation}')
+    directions_list = enumerate(directions)
+    for index, char in directions_list:
+        print(f'presently at {present_position[0]}, {present_position[1]} facing {temp_orientation}')
         if 'R' == char:
             temp_orientation = (temp_orientation + 1) % 4
-            # print(f'Turning right')
+            print(f'Turning right')
             continue
         if 'L' == char:
             temp_orientation = (temp_orientation + 3) % 4
-            # print(f'Turning left')
+            print(f'Turning left')
             continue
         if 'M' == char:
-            # print(f'Moving forward')
+            if index < (len(directions) - 1) and directions[index + 1].isnumeric():
+                move_length = int(directions[index + 1])
+                next(directions_list)
+            else:
+                move_length = 1
+            print(f'Moving forward')
             if temp_orientation == 0:
-                present_position = (present_position[0] + 1, present_position[1])
+                present_position = (present_position[0] + move_length, present_position[1])
                 if present_position[0] > max_dimens[0]:
                     msg = f'Off the map! These directions take this rover off the flat planet mars'
                     raise OffMapException(msg)
             if temp_orientation == 1:
-                present_position = (present_position[0], present_position[1] + 1)
+                present_position = (present_position[0], present_position[1] + move_length)
                 if present_position[1] > max_dimens[1]:
                     msg = f'Off the map! These directions take this rover off the flat planet mars'
                     raise OffMapException(msg)
             if temp_orientation == 2:
-                present_position = (present_position[0] - 1, present_position[1])
+                present_position = (present_position[0] - move_length, present_position[1])
                 if present_position[0] < 0:
                     msg = f'Off the map! These directions take this rover off the flat planet mars'
                     raise OffMapException(msg)
             if temp_orientation == 3:
-                present_position = (present_position[0], present_position[1] - 1)
+                present_position = (present_position[0], present_position[1] - move_length)
                 if present_position[1] < 0:
                     msg = f'Off the map! These directions take this rover off the flat planet mars'
                     raise OffMapException(msg)

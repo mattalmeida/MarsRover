@@ -40,8 +40,11 @@ def validate_instructions(instruction_set: List) -> None:
         raise InvalidDirectionException(msg)
     for char in instruction_set[0]:
         if char not in ['L', 'R', 'M']:
-            msg = f'Invalid command found within instructions: {instruction_set[0]}'
-            raise InvalidDirectionException(msg)
+            if char.isnumeric():
+                continue
+            else:
+                msg = f'Direction set can accept only ints outside of L, R, M commands'
+                raise InvalidDirectionException(msg)
 
 
 def validate_planet(max_dimens: List[int]) -> None:
