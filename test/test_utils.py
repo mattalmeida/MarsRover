@@ -61,8 +61,8 @@ def test_run_complex_rover():
     directions = 'RMLM3'
     planet_size = (3, 3)
     x, y, face = run_rover(start_pos, directions, planet_size)
-    assert x is 3
-    assert y is 1
+    assert x is 1
+    assert y is 3
     assert face is 0
 
 

@@ -63,22 +63,22 @@ def run_rover(start: Tuple[int, int, str],
                 move_length = 1
             print(f'Moving forward')
             if temp_orientation == 0:
-                present_position = (present_position[0] + move_length, present_position[1])
+                present_position = (present_position[0], present_position[1] + move_length)
                 if present_position[0] > max_dimens[0]:
                     msg = f'Off the map! These directions take this rover off the flat planet mars'
                     raise OffMapException(msg)
             if temp_orientation == 1:
-                present_position = (present_position[0], present_position[1] + move_length)
+                present_position = (present_position[0] + move_length, present_position[1])
                 if present_position[1] > max_dimens[1]:
                     msg = f'Off the map! These directions take this rover off the flat planet mars'
                     raise OffMapException(msg)
             if temp_orientation == 2:
-                present_position = (present_position[0] - move_length, present_position[1])
+                present_position = (present_position[0], present_position[1] - move_length)
                 if present_position[0] < 0:
                     msg = f'Off the map! These directions take this rover off the flat planet mars'
                     raise OffMapException(msg)
             if temp_orientation == 3:
-                present_position = (present_position[0], present_position[1] - move_length)
+                present_position = (present_position[0] - move_length, present_position[1])
                 if present_position[1] < 0:
                     msg = f'Off the map! These directions take this rover off the flat planet mars'
                     raise OffMapException(msg)
